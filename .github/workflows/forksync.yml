@@ -11,9 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v1.4
+      - uses: tgymnich/fork-sync@v1.6.3
         with:
           owner: Grasscutter
           base: development
-          head: 17808b49037f182758a6cc723e1fa3bbd9416dd9
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          head: development
