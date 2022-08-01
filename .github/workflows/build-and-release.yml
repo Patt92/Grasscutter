@@ -40,10 +40,10 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Run Gradle
         run: ./gradlew && ./gradlew jar
-      - name: grab version
-        run: echo ::set-output name=ver::${ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g'}
-        env:
-          ver: $ver
+#      - name: grab version
+#        run: echo ::set-output name=ver::${ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g'}
+#        env:
+#          ver: $ver
       - name: rename artifact
         run: mv grasscutter-*.jar grasscutter.jar
       - name: Upload build
@@ -57,5 +57,5 @@ jobs:
             body: "automatic build of release"
             commit: "development"
             artifacts: grasscutte*.jar
-            name: "${{env.ver}}-dev ${{ steps.vars.outputs.sha_short }}"
+            name: "Grasscutter-dev ${{ steps.vars.outputs.sha_short }}"
             tag: "dev-autobuild-${{github.sha}}"
