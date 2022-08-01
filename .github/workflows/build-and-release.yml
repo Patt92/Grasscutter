@@ -19,8 +19,8 @@ jobs:
   Build-Server-Jar:
     runs-on: ubuntu-latest
     steps:
-      - name: set variable
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+#      - name: set variable
+#        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Java
@@ -40,6 +40,10 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Run Gradle
         run: ./gradlew && ./gradlew jar
+      - name: Get short sha
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+      - name: Get version
+        run: echo "ver=$(ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g')" >> $GITHUB_ENV
 #      - name: grab version
 #        run: echo ::set-output name=ver::${ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g'}
 #        env:
@@ -57,5 +61,6 @@ jobs:
             body: "automatic build of release"
             commit: "development"
             artifacts: grasscutte*.jar
-            name: "Grasscutter-dev ${{ steps.vars.outputs.sha_short }}"
-            tag: "dev-autobuild-${{github.sha}}"
+            name: "$ver-dev ${{ steps.vars.outputs.sha_short }}"
+            tag: "dev-autobuild-$GITHUB_SHA_SHORT"
+            #${{github.sha}}"
