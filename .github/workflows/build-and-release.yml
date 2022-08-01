@@ -41,7 +41,7 @@ jobs:
       - name: Run Gradle
         run: ./gradlew && ./gradlew jar
       - name: grab version
-        run: ver=${ls grasscutter-* | sed 's/grasscutter-//g' | sed 's/\.jar//g'}
+        run: echo ::set-output name=ver::${ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g'}
         env:
           ver: $ver
       - name: rename artifact
