@@ -19,6 +19,8 @@ jobs:
   Build-Server-Jar:
     runs-on: ubuntu-latest
     steps:
+      - name: set variable
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Java
@@ -43,12 +45,12 @@ jobs:
         with:
           name: Grasscutter
           path: grasscutter-*.jar
+          
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        env:
+            RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         with:
-            env:
-              RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
             body: "automatic build of release"
             commit: "development"
             artifacts: grasscutter-*.jar
