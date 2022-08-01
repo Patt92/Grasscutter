@@ -14,5 +14,6 @@ jobs:
       - uses: tgymnich/fork-sync@v1.4
         with:
           owner: Grasscutter
-          base: master
-          head: master
+          base: development
+          head: development
+          token: ${{ secrets.PERSONAL_TOKEN }}
