@@ -63,6 +63,6 @@ jobs:
             body: "automatic build of release"
             commit: "development"
             artifacts: grasscutte*.jar
-            name: "${{ env.ver }}-dev ${{ steps.vars.outputs.sha_short }}"
+            name: "${{ env.ver }} ${{ steps.vars.outputs.sha_short }}"
             tag: "dev-autobuild-${{ env.GITHUB_SHA_SHORT }}"
             #${{github.sha}}"
