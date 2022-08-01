@@ -55,4 +55,4 @@ jobs:
             commit: "development"
             artifacts: grasscutter-*.jar
             name: "${RELEASE_VERSION}-dev ${{ steps.vars.outputs.sha_short }}"
-            tag: "dev-autobuild-${{ steps.vars.outputs.sha_short }}"
+            tag: "dev-autobuild-${{github.sha}}"
