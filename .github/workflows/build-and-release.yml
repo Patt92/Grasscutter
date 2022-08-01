@@ -40,19 +40,20 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Run Gradle
         run: ./gradlew && ./gradlew jar
+      - name: grab version
+        run: ver=${ls test-* | sed -r 's/test-(.*)\.jar/\1/g'}
+      - name: rename artifact
+        run: mv grasscutter-*.jar grasscutter.jar
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
           name: Grasscutter
-          path: grasscutter-*.jar
-          
+          path: grasscutte*.jar          
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
-        env:
-            RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         with:
             body: "automatic build of release"
             commit: "development"
-            artifacts: grasscutter-*.jar
-            name: "1.2.3-dev ${{ steps.vars.outputs.sha_short }}"
+            artifacts: grasscutte*.jar
+            name: "${{ver}}-dev ${{ steps.vars.outputs.sha_short }}"
             tag: "dev-autobuild-${{github.sha}}"
