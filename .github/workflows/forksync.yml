@@ -16,3 +16,5 @@ jobs:
           owner: Grasscutter
           base: development
           head: development
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          auto_approxe: true
