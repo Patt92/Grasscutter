@@ -18,3 +18,4 @@ jobs:
           head: development
           token: ${{ secrets.PERSONAL_TOKEN }}
           auto_approve: true
+          merge_method: merge
