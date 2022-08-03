@@ -64,6 +64,7 @@ jobs:
         with:
             body: "automatic build of release. Commit ${{ env.GITHUB_SHA_SHORT }}"
             commit: "development"
+            generateReleaseNotes: true
             artifacts: grasscutte*.jar
             name: "${{ env.ver }} ${{ env.reldate }}"
             tag: "dev-autobuild-${{ env.GITHUB_SHA_SHORT }}"
