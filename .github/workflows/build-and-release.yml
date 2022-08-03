@@ -47,9 +47,9 @@ jobs:
       - name: Get version
         run: echo "ver=$(ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g')" >> $GITHUB_ENV
       - name: set date
-        run: echo "reldate=$(date +%Y%m%d_%H%M)" >> $GITHUB_ENV
-#      - name: grab version
-#        run: echo ::set-output name=ver::${ls grasscutter-* | sed -r 's/grasscutter-(.*)\.jar/\1/g'}
+        run: echo "reldate=$(date +%Y.%m.%d %H:%M)" >> $GITHUB_ENV
+      - name: set date commit name
+        run: echo "commitdate=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 #        env:
 #          ver: $ver
       - name: rename artifact
@@ -67,5 +67,5 @@ jobs:
             generateReleaseNotes: true
             artifacts: grasscutte*.jar
             name: "${{ env.ver }} ${{ env.reldate }}"
-            tag: "dev-autobuild-${{ env.GITHUB_SHA_SHORT }}"
+            tag: "dev-${{ env.commitdate }}-autobuild"
             #${{github.sha}}"
