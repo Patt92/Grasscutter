@@ -16,6 +16,6 @@ jobs:
           owner: Grasscutters
           base: development
           head: development
-          token: ${{ secrets.Personal_Token }}
+          token: ${{ secrets.PATT2 }}
           auto_approve: true
           merge_method: merge
