@@ -14,7 +14,7 @@ jobs:
       - uses: tgymnich/fork-sync@v1.6.3
         with:
           owner: Grasscutters
-          base: development
+          base: building
           head: development
           token: ${{ secrets.PERSONAL_TOKEN }}
           auto_approve: true
