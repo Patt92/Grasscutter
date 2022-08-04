@@ -9,7 +9,7 @@ on:
       - "**.java"
     branches:
       - "stable"
-      - "building"
+      - "development"
   pull_request:
     paths:
       - "**.java"
