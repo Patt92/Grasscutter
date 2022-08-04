@@ -16,7 +16,6 @@ jobs:
           owner: Grasscutters
           base: development
           head: development
-          github_token: ${{ secrets.GH_Token }}
-          personal_token: ${{ secrets.Personal_Token }}
+          token: ${{ secrets.Personal_Token }}
           auto_approve: true
           merge_method: merge
