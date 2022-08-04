@@ -13,9 +13,9 @@ jobs:
     steps:
       - uses: tgymnich/fork-sync@v1.6.3
         with:
+          token: ${{ secrets.PATT2 }}
           owner: Grasscutters
           base: development
-          head: development
-          token: ${{ secrets.PATT2 }}
+          head: development   
           auto_approve: true
           merge_method: merge
