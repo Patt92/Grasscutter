@@ -9,7 +9,7 @@ on:
       - "**.java"
     branches:
       - "stable"
-      - "development"
+      - "building"
   pull_request:
     paths:
       - "**.java"
@@ -63,7 +63,7 @@ jobs:
         uses: ncipollo/release-action@v1.10.0
         with:
             body: "automatic build of release. Commit ${{ env.GITHUB_SHA_SHORT }}"
-            commit: "building"
+            commit: "development"
             generateReleaseNotes: true
             artifacts: grasscutte*.jar
             name: "${{ env.ver }} ${{ env.reldate }}"
