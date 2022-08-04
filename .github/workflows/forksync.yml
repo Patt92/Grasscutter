@@ -11,11 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: tgymnich/fork-sync@v1.6.3
+      - uses: tgymnich/fork-sync@v1.3
         with:
           owner: Grasscutters
           base: development
           head: development
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          github_token: ${{ secrets.GH_Token }}
+          personal_token: ${{ secrets.Personal_Token }}
           auto_approve: true
           merge_method: merge
