@@ -1,5 +1,8 @@
 package emu.grasscutter.utils;
 
+import static emu.grasscutter.utils.FileUtils.getResourcePath;
+import static emu.grasscutter.utils.lang.Language.translate;
+
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.config.ConfigContainer;
 import emu.grasscutter.data.DataLoader;
@@ -8,9 +11,6 @@ import emu.grasscutter.utils.objects.Returnable;
 import io.javalin.http.Context;
 import io.netty.buffer.*;
 import it.unimi.dsi.fastutil.ints.*;
-import org.slf4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
@@ -19,9 +19,8 @@ import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static emu.grasscutter.utils.FileUtils.getResourcePath;
-import static emu.grasscutter.utils.lang.Language.translate;
+import javax.annotation.Nullable;
+import org.slf4j.Logger;
 
 @SuppressWarnings({"UnusedReturnValue", "BooleanMethodIsAlwaysInverted"})
 public final class Utils {
@@ -524,5 +523,15 @@ public final class Utils {
             Thread.sleep(millis);
         } catch (InterruptedException ignored) {
         }
+    }
+
+    /**
+     * Unescapes a JSON string.
+     *
+     * @param json The JSON string to unescape.
+     * @return The unescaped JSON string.
+     */
+    public static String unescapeJson(String json) {
+        return json.replaceAll("\"", "\"");
     }
 }
