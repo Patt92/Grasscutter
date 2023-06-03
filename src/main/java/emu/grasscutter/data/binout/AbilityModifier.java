@@ -323,6 +323,10 @@ public class AbilityModifier implements Serializable {
 
         public int skillID;
 
+        public AbilityModifierAction[] actions;
+        public AbilityModifierAction[] successActions;
+        public AbilityModifierAction[] failActions;
+
         public int param1;
         public int param2;
         public int param3;

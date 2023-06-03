@@ -11,7 +11,7 @@ import emu.grasscutter.game.props.*;
 import emu.grasscutter.game.quest.enums.QuestContent;
 import emu.grasscutter.game.world.data.TeleportProperties;
 import emu.grasscutter.net.packet.BasePacket;
-import emu.grasscutter.net.proto.ChatInfoOuterClass.ChatInfo.SystemHint;
+import emu.grasscutter.net.proto.ChatInfoOuterClass.ChatInfo.*;
 import emu.grasscutter.net.proto.EnterTypeOuterClass.EnterType;
 import emu.grasscutter.scripts.data.SceneConfig;
 import emu.grasscutter.server.event.player.PlayerTeleportEvent;
@@ -158,7 +158,12 @@ public class World implements Iterable<Player> {
 
             if (player != this.getHost()) {
                 this.broadcastPacket(
-                        new PacketPlayerChatNotify(player, 0, SystemHint.newBuilder().setType(1).build()));
+                        new PacketPlayerChatNotify(
+                                player,
+                                0,
+                                SystemHint.newBuilder()
+                                        .setType(SystemHintType.SYSTEM_HINT_TYPE_CHAT_ENTER_WORLD.getNumber())
+                                        .build()));
             }
         }
 
@@ -215,7 +220,12 @@ public class World implements Iterable<Player> {
             }
         } else {
             this.broadcastPacket(
-                    new PacketPlayerChatNotify(player, 0, SystemHint.newBuilder().setType(2).build()));
+                    new PacketPlayerChatNotify(
+                            player,
+                            0,
+                            SystemHint.newBuilder()
+                                    .setType(SystemHintType.SYSTEM_HINT_TYPE_CHAT_LEAVE_WORLD.getNumber())
+                                    .build()));
         }
     }
 
@@ -511,10 +521,6 @@ public class World implements Iterable<Player> {
      */
     public void changeTime(long gameTime) {
         this.currentWorldTime = gameTime;
-
-        // Trigger script events.
-        this.players.forEach(
-                player -> player.getQuestManager().queueEvent(QuestContent.QUEST_CONTENT_GAME_TIME_TICK));
     }
 
     /**

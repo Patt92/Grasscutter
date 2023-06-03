@@ -32,11 +32,22 @@ public class AbilityLocalIdGenerator {
     public void initializeActionLocalIds(
             AbilityModifierAction[] actions, Map<Integer, AbilityModifierAction> localIdToAction) {
         if (actions == null) return;
-        actionIndex = 0;
-        for (AbilityModifierAction action : actions) {
-            actionIndex++;
-            long id = GetLocalId();
-            localIdToAction.put((int) id, action);
+        this.actionIndex = 0;
+        for (int i = 0; i < actions.length; i++) {
+            this.actionIndex++;
+
+            var id = GetLocalId();
+            localIdToAction.put((int) id, actions[i]);
+
+            if (actions[i].actions != null)
+                this.initializeActionLocalIds(actions[i].actions, localIdToAction);
+            else {
+                if (actions[i].successActions != null)
+                    this.initializeActionLocalIds(
+                            actions[i].successActions, localIdToAction); // Need to check this specific order
+                if (actions[i].failActions != null)
+                    this.initializeActionLocalIds(actions[i].failActions, localIdToAction);
+            }
         }
 
         actionIndex = 0;
@@ -45,15 +56,15 @@ public class AbilityLocalIdGenerator {
     public void initializeMixinsLocalIds(
             AbilityMixinData[] mixins, Map<Integer, AbilityMixinData> localIdToAction) {
         if (mixins == null) return;
-        mixinIndex = 0;
-        for (AbilityMixinData mixin : mixins) {
-            long id = GetLocalId();
+        this.mixinIndex = 0;
+        for (var mixin : mixins) {
+            var id = GetLocalId();
             localIdToAction.put((int) id, mixin);
 
-            mixinIndex++;
+            this.mixinIndex++;
         }
 
-        mixinIndex = 0;
+        this.mixinIndex = 0;
     }
 
     public long GetLocalId() {
