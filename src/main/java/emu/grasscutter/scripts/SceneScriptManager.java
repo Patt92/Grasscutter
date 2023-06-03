@@ -681,8 +681,8 @@ public class SceneScriptManager {
                                             || !groupInstance.getDeadEntities().contains(m.config_id));
                         })
                 .map(g -> createGadget(group.id, group.block_id, g, groupInstance.getCachedGadgetState(g)))
-                .peek(g -> groupInstance.cacheGadgetState(g.getMetaGadget(), g.getState()))
                 .filter(Objects::nonNull)
+                .peek(g -> groupInstance.cacheGadgetState(g.getMetaGadget(), g.getState()))
                 .toList();
     }
 
