@@ -540,11 +540,18 @@ public final class Scene {
         }
 
         var sceneTime = getSceneTimeSeconds();
-        getEntities().forEach((eid, e) -> e.onTick(sceneTime));
+
+        var entities = Map.copyOf(this.getEntities());
+        entities.forEach(
+                (eid, e) -> {
+                    if (!e.isAlive()) {
+                        this.getEntities().remove(eid);
+                    } else e.onTick(sceneTime);
+                });
 
         blossomManager.onTick();
 
-        checkNpcGroup();
+        this.checkNpcGroup();
 
         this.finishLoading();
         this.checkPlayerRespawn();
