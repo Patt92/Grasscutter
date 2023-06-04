@@ -5,6 +5,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import emu.grasscutter.Grasscutter;
 import emu.grasscutter.data.GameData;
 import emu.grasscutter.data.binout.AbilityModifier.AbilityModifierAction;
+import emu.grasscutter.data.binout.AbilityModifier.AbilityModifierAction.DropType;
 import emu.grasscutter.data.binout.config.ConfigLevelEntity;
 import emu.grasscutter.game.ability.Ability;
 import emu.grasscutter.game.entity.EntityAvatar;
@@ -29,7 +30,7 @@ public final class ActionGenerateElemBall extends AbilityActionHandler {
         }
 
         // Check if we should allow elem ball generation
-        if (action.dropType.getValue() == 0) {
+        if (action.dropType == DropType.LevelControl) {
             String levelEntityConfig = owner.getScene().getSceneData().getLevelEntityConfig();
             ConfigLevelEntity config = GameData.getConfigLevelEntityDataMap().get(levelEntityConfig);
             if (config != null
@@ -38,12 +39,12 @@ public final class ActionGenerateElemBall extends AbilityActionHandler {
                 Grasscutter.getLogger().warn("This level config don't allow element balls");
                 return true;
             }
-        } else if (action.dropType.getValue() == 1) {
+        } else if (action.dropType == DropType.BigWorldOnly) {
             if (owner.getScene().getSceneData().getSceneType() != SceneType.SCENE_WORLD) {
                 Grasscutter.getLogger().warn("This level config only allows element balls on big world");
                 return true;
             }
-        } // else: the drop is forced. (value 2)
+        } // Else the drop is forced
 
         var energy = action.baseEnergy.get(ability) * action.ratio.get(ability);
         if (energy <= 0.0) return true;
