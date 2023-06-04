@@ -3,6 +3,7 @@ package emu.grasscutter.data.binout;
 import com.google.gson.annotations.SerializedName;
 import emu.grasscutter.data.common.DynamicFloat;
 import emu.grasscutter.game.props.ElementType;
+import emu.grasscutter.utils.objects.DropType;
 import java.io.Serializable;
 import lombok.ToString;
 
@@ -327,7 +328,7 @@ public class AbilityModifier implements Serializable {
         public AbilityModifierAction[] successActions;
         public AbilityModifierAction[] failActions;
 
-        public int dropType;
+        public DropType dropType;
         public DynamicFloat baseEnergy;
         public DynamicFloat ratio = DynamicFloat.ONE;
         public int configID;
