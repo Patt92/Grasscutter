@@ -183,6 +183,8 @@ public final class Grasscutter {
     private static void onShutdown() {
         // Disable all plugins.
         if (pluginManager != null) pluginManager.disablePlugins();
+        // Shutdown the game server.
+        if (gameServer != null) gameServer.onServerShutdown();
 
         try {
             // Wait for Grasscutter's thread pool to finish.

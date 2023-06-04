@@ -164,9 +164,6 @@ public final class GameServer extends KcpServer implements Iterable<Player> {
 
         // Chata manager
         this.chatManager = new ChatSystem(this);
-
-        // Hook into shutdown event.
-        Runtime.getRuntime().addShutdownHook(new Thread(this::onServerShutdown));
     }
 
     private static InetSocketAddress getAdapterInetSocketAddress() {
@@ -330,11 +327,12 @@ public final class GameServer extends KcpServer implements Iterable<Player> {
         var event = new ServerStopEvent(ServerEvent.Type.GAME, OffsetDateTime.now());
         event.call();
 
+        // Save players & the world.
         this.getPlayers().forEach((uid, player) -> player.getSession().close());
-
         this.getWorlds().forEach(World::save);
 
         Utils.sleep(1000L); // Wait 1 second for operations to finish.
+        this.stop(); // Stop the server.
 
         try {
             var threadPool = GameSessionManager.getLogicThread();
