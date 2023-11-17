@@ -42,6 +42,7 @@ public class AbilityModifier implements Serializable {
     public String stacking;
 
     public AbilityMixinData[] modifierMixins;
+    public AbilityModifierProperty properties;
 
     public ElementType elementType;
     public DynamicFloat elementDurability = DynamicFloat.ZERO;
@@ -328,6 +329,8 @@ public class AbilityModifier implements Serializable {
 
         public int skillID;
         public int resistanceListID;
+        public int monsterID;
+        public int summonTag;
 
         public AbilityModifierAction[] actions;
         public AbilityModifierAction[] successActions;
@@ -368,6 +371,11 @@ public class AbilityModifier implements Serializable {
             BigWorldOnly,
             ForceDrop
         }
+    }
+
+    public static class AbilityModifierProperty implements Serializable {
+        public float Actor_HpThresholdRatio;
+        // Add more properties here when GC needs them.
     }
 
     public enum State {
